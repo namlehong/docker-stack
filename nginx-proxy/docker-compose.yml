@@ -28,7 +28,12 @@ services:
 
 volumes:
   html:
+    driver: local
   vhost:
+    driver: local
   certs:
+    driver: local
   nginx_config:
+    driver: local
   dhparam:
+    driver: local
