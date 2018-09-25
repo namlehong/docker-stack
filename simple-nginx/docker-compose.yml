@@ -1,0 +1,15 @@
+version: '2'
+
+services:
+  nginx:
+    image: nginx:alpine
+    volumes: 
+      - html:/usr/share/nginx/html
+    environment:
+      VIRTUAL_HOST: ${DOMAIN}
+      LETSENCRYPT_HOST: ${DOMAIN}
+      LETSENCRYPT_EMAIL: namlehong@gmail.com
+
+volumes:
+  html:
+    driver: local

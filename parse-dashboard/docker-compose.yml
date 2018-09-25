@@ -7,8 +7,6 @@ services:
     - /opt/dashboard.json:/src/Parse-Dashboard/parse-dashboard-config.json
     expose:
       - 4040
-    volumes:
-      - config:/src/Parse-Dashboard/config:ro
     networks:
       - nginx-proxy
     environment:

@@ -1,7 +1,7 @@
 version: '2'
 
 networks:
-  default:
+  nginx-proxy:
     external:
       name: web
 
@@ -12,6 +12,8 @@ services:
     ports:
       - 80:80
       - 443:443
+    networks:
+      - nginx-proxy  
     volumes:
       - certs:/etc/nginx/certs:ro
       - nginx_config:/etc/nginx/conf.d
@@ -28,6 +30,8 @@ services:
       - vhost:/etc/nginx/vhost.d
       - html:/usr/share/nginx/html
       - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - nginx-proxy
     environment:
       - NGINX_PROXY_CONTAINER=nginx-proxy
 
