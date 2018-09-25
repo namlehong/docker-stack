@@ -1,0 +1,151 @@
+version: "2"
+
+networks:
+  proxy-tier:
+    external:
+      name: web
+
+services:
+
+  radarr:
+    container_name: radarr
+    image: "linuxserver/radarr"
+    environment:
+      PGID: 1000
+      PUID: 1000
+      TZ: Asia/Hochiminh
+      VIRTUAL_HOST: radarr${DOMAIN}
+      VIRTUAL_PORT: 7878
+      LETSENCRYPT_HOST: radarr${DOMAIN}
+      LETSENCRYPT_EMAIL: namlehong@gmail.com
+    volumes:
+      - ${BASE_PATH}config/radarr:/config
+      - ${BASE_PATH}data:/downloads
+      - ${BASE_PATH}media/Movies:/movies
+      - /etc/localtime:/etc/localtime:ro
+    restart: unless-stopped
+    networks:
+      - proxy-tier
+  
+  plex:
+    container_name: plex
+    image: plexinc/pms-docker:plexpass
+#    network_mode: "host"
+    restart: unless-stopped
+    ports:
+       - 32400:32400
+       - 32400:32400/udp
+       - 32469:32469 
+       - 32469:32469/udp
+       - 5353:5353/udp
+       - 1900:1900/udp
+#      - 32400:32400/tcp
+       - 3005:3005/tcp
+       - 8324:8324/tcp
+#       - 32469:32469/tcp
+       - 32410:32410/udp
+       - 32412:32412/udp
+       - 32413:32413/udp
+       - 32414:32414/udp
+    environment:
+      TZ: Asia/Hochiminh
+      VIRTUAL_HOST: plex${DOMAIN}
+      VIRTUAL_PORT: 32400
+      LETSENCRYPT_HOST: plex${DOMAIN}
+      LETSENCRYPT_EMAIL: namlehong@gmail.com
+    volumes:
+      - ${BASE_PATH}config/plex:/config
+      - ${BASE_PATH}.plextranscode:/transcode
+      - ${BASE_PATH}media/TV Shows:/tv
+      - ${BASE_PATH}media/Movies:/movies
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      - proxy-tier
+  
+  jackett:
+    container_name: jackett
+    image: linuxserver/jackett
+    environment:
+      PGID: 1000
+      PUID: 1000
+      TZ: Asia/Hochiminh
+      VIRTUAL_HOST: jackett${DOMAIN}
+      VIRTUAL_PORT: 9117
+      LETSENCRYPT_HOST: jackett${DOMAIN}
+      LETSENCRYPT_EMAIL: namlehong@gmail.com
+    volumes:
+      - ${BASE_PATH}config/jackett:/config
+      - ${BASE_PATH}data/auto-add:/downloads
+      - /etc/localtime:/etc/localtime:ro
+    # restart: unless-stopped
+    networks:
+      - proxy-tier
+
+  sonarr: 
+    container_name: sonarr
+    image: linuxserver/sonarr
+    environment:
+      PGID: 1000
+      PUID: 1000
+      TZ: Asia/Hochiminh
+      VIRTUAL_HOST: sonarr${DOMAIN}
+      VIRTUAL_PORT: 8989
+      LETSENCRYPT_HOST: sonarr${DOMAIN}
+      LETSENCRYPT_EMAIL: namlehong@gmail.com
+    volumes:
+      - ${BASE_PATH}config/sonarr:/config
+      - ${BASE_PATH}data:/downloads
+      - ${BASE_PATH}media/TV Shows:/tv
+      - /etc/localtime:/etc/localtime:ro
+    # restart: unless-stopped
+    networks:
+      - proxy-tier
+
+  deluge:
+    container_name: deluge
+    image: linuxserver/deluge
+    environment:
+      PGID: 1000
+      PUID: 1000
+      TZ: Asia/Hochiminh
+      VIRTUAL_HOST: deluge${DOMAIN}
+      VIRTUAL_PORT: 8112
+      LETSENCRYPT_HOST: deluge${DOMAIN}
+      LETSENCRYPT_EMAIL: namlehong@gmail.com
+    ports:
+      - 6881:6881
+      - 6882:6882
+      - 6883:6883
+      - 6884:6884
+      - 6885:6885
+      - 6886:6886
+      - 6887:6887
+      - 6888:6888
+      - 6889:6889
+      - 58846:58846
+    volumes:
+      - ${BASE_PATH}data:/downloads
+      - ${BASE_PATH}config/deluge:/config
+      - /etc/localtime:/etc/localtime:ro
+    # restart: unless-stopped
+    networks:
+      - proxy-tier
+
+  plexpy:
+    container_name: plexpy
+    image: "linuxserver/plexpy"
+    environment:
+      PGID: 1000
+      PUID: 1000
+      TZ: Asia/Hochiminh
+      VIRTUAL_HOST: plexpy${DOMAIN}
+      VIRTUAL_PORT: 8181
+      LETSENCRYPT_HOST: plexpy${DOMAIN}
+      LETSENCRYPT_EMAIL: namlehong@gmail.com
+    volumes:
+      - ${BASE_PATH}config/plexpy:/config
+      - ${BASE_PATH}media/TV Shows:/tv
+      - /etc/localtime:/etc/localtime:ro
+    # restart: unless-stopped
+    networks:
+      - proxy-tier
