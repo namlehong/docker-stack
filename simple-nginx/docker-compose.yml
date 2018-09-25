@@ -3,6 +3,8 @@ version: '2'
 services:
   nginx:
     image: nginx:alpine
+    networks:
+      - nginx-proxy
     volumes: 
       - html:/usr/share/nginx/html
     environment:
@@ -13,3 +15,8 @@ services:
 volumes:
   html:
     driver: local
+
+networks:
+  nginx-proxy:
+    external:
+      name: web
