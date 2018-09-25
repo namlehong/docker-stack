@@ -6,6 +6,7 @@ services:
     networks:
       - nginx-proxy
     volumes: 
+      - config:/etc/nginx/conf.d
       - html:/usr/share/nginx/html
     environment:
       VIRTUAL_HOST: ${DOMAIN}
@@ -13,6 +14,8 @@ services:
       LETSENCRYPT_EMAIL: namlehong@gmail.com
 
 volumes:
+  config:
+    driver: local
   html:
     driver: local
 

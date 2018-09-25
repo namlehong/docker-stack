@@ -29,6 +29,7 @@ services:
       - PARSE_SERVER_DATABASE_URI=mongodb://parser_server:parser_pwd@mongo/parse
       - PARSE_SERVER_CLOUD=${CLOUD}
       - PARSE_SERVER_START_LIVE_QUERY_SERVER=1
+      - PARSE_SERVER_LIVE_QUERY=${LIVE_QUERY}
       
 
 volumes:
