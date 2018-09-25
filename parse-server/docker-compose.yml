@@ -9,7 +9,7 @@ networks:
 services:
   mongo:
     image: mongo
-    restart: always
+    # restart: always
     networks:
       - default
     volumes:
@@ -20,7 +20,6 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: parser_pwd
 
   parse:
-    parse:
     image: parseplatform/parse-server
 #    restart: always
 #    command: --appId PARSE_LOTTO_APPLICATION_ID --masterKey PARSE_LOTTO_MASTER_KEY --databaseURI mongodb://lotto_admin:lotto_pwd@mongo/parse_lotto
