@@ -1,0 +1,47 @@
+version: '2'
+
+networks:
+  default:
+    driver: bridge
+  nginxproxy_default:
+    external: true
+
+services:
+  mongo:
+    image: mongo
+    restart: always
+    networks:
+      - default
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: parser_server
+      MONGO_INITDB_ROOT_PASSWORD: parser_pwd
+
+  parse:
+    parse:
+    image: parseplatform/parse-server
+#    restart: always
+#    command: --appId PARSE_LOTTO_APPLICATION_ID --masterKey PARSE_LOTTO_MASTER_KEY --databaseURI mongodb://lotto_admin:lotto_pwd@mongo/parse_lotto
+#    entrypoint: npm install nodemon && nodemon ./bin/parse-server
+    volumes:
+      - cloud:/parse-server/cloud
+      - config:/parse-server/config
+    networks:
+      - default
+      - nginxproxy_default
+    environment:
+      - VIRTUAL_HOST=${DOMAIN}
+      - VIRTUAL_PORT=1337
+      - LETSENCRYPT_HOST=${DOMAIN}
+      - LETSENCRYPT_EMAIL=namlehong@gmail.com
+      - PARSE_SERVER_APPLICATION_ID=${APP_ID}
+      - PARSE_SERVER_MASTER_KEY=${MASTER_KEY}
+      - PARSE_SERVER_DATABASE_URI=mongodb://parser_server:parser_pwd@mongo/parse
+      - PARSE_SERVER_CLOUD=${CLOUD}
+      - PARSE_SERVER_START_LIVE_QUERY_SERVER=1
+      
+
+volumes:
+  cloud:
+    driver: local
+  config:
+    driver: local
