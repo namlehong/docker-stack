@@ -1,0 +1,24 @@
+version: '2'
+
+services:
+  dashboard:
+    image: parseplatform/parse-dashboard
+    # volumes:
+    # - ./dashboard.json:/src/Parse-Dashboard/parse-dashboard-config.json
+    expose:
+      - 4040
+    networks:
+      - nginx-proxy
+    environment:
+      - VIRTUAL_HOST=${DOMAIN}
+      - VIRTUAL_PORT=4040
+#      - VIRTUAL_PROTO=https
+      - PARSE_DASHBOARD_ALLOW_INSECURE_HTTP=1
+      - LETSENCRYPT_HOST=${DOMAIN}
+      - LETSENCRYPT_EMAIL=namlehong@gmail.com
+
+
+networks:
+  nginx-proxy:
+    external:
+      name: web
