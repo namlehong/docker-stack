@@ -1,17 +1,9 @@
 version: '2'
 
-networks:
-  default:
-    driver: bridge
-  nginxproxy_default:
-    external: true
-
 services:
   mongo:
     image: mongo
     # restart: always
-    networks:
-      - default
     volumes:
       - mongo_db:/data/db
       - mongo_config:/data/configdb
@@ -27,9 +19,6 @@ services:
     volumes:
       - cloud:/parse-server/cloud
       - config:/parse-server/config
-    networks:
-      - default
-      - nginxproxy_default
     environment:
       - VIRTUAL_HOST=${DOMAIN}
       - VIRTUAL_PORT=1337
