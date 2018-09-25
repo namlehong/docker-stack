@@ -19,9 +19,9 @@ services:
       LETSENCRYPT_HOST: radarr${DOMAIN}
       LETSENCRYPT_EMAIL: namlehong@gmail.com
     volumes:
-      - ${BASE_PATH}config/radarr:/config
-      - ${BASE_PATH}data:/downloads
-      - ${BASE_PATH}media/Movies:/movies
+      - ${BASE_PATH}/config/radarr:/config
+      - ${BASE_PATH}/data:/downloads
+      - ${BASE_PATH}/media/Movies:/movies
       - /etc/localtime:/etc/localtime:ro
     restart: unless-stopped
     networks:
@@ -54,10 +54,10 @@ services:
       LETSENCRYPT_HOST: plex${DOMAIN}
       LETSENCRYPT_EMAIL: namlehong@gmail.com
     volumes:
-      - ${BASE_PATH}config/plex:/config
-      - ${BASE_PATH}.plextranscode:/transcode
-      - ${BASE_PATH}media/TV Shows:/tv
-      - ${BASE_PATH}media/Movies:/movies
+      - ${BASE_PATH}/config/plex:/config
+      - ${BASE_PATH}/.plextranscode:/transcode
+      - ${BASE_PATH}/media/TV Shows:/tv
+      - ${BASE_PATH}/media/Movies:/movies
       - /etc/localtime:/etc/localtime:ro
     networks:
       - proxy-tier
@@ -74,8 +74,8 @@ services:
       LETSENCRYPT_HOST: jackett${DOMAIN}
       LETSENCRYPT_EMAIL: namlehong@gmail.com
     volumes:
-      - ${BASE_PATH}config/jackett:/config
-      - ${BASE_PATH}data/auto-add:/downloads
+      - ${BASE_PATH}/config/jackett:/config
+      - ${BASE_PATH}/data/auto-add:/downloads
       - /etc/localtime:/etc/localtime:ro
     # restart: unless-stopped
     networks:
@@ -93,9 +93,9 @@ services:
       LETSENCRYPT_HOST: sonarr${DOMAIN}
       LETSENCRYPT_EMAIL: namlehong@gmail.com
     volumes:
-      - ${BASE_PATH}config/sonarr:/config
-      - ${BASE_PATH}data:/downloads
-      - ${BASE_PATH}media/TV Shows:/tv
+      - ${BASE_PATH}/config/sonarr:/config
+      - ${BASE_PATH}/data:/downloads
+      - ${BASE_PATH}/media/TV Shows:/tv
       - /etc/localtime:/etc/localtime:ro
     # restart: unless-stopped
     networks:
@@ -124,8 +124,8 @@ services:
       - 6889:6889
       - 58846:58846
     volumes:
-      - ${BASE_PATH}data:/downloads
-      - ${BASE_PATH}config/deluge:/config
+      - ${BASE_PATH}/data:/downloads
+      - ${BASE_PATH}/config/deluge:/config
       - /etc/localtime:/etc/localtime:ro
     # restart: unless-stopped
     networks:
@@ -143,8 +143,8 @@ services:
       LETSENCRYPT_HOST: plexpy${DOMAIN}
       LETSENCRYPT_EMAIL: namlehong@gmail.com
     volumes:
-      - ${BASE_PATH}config/plexpy:/config
-      - ${BASE_PATH}media/TV Shows:/tv
+      - ${BASE_PATH}/config/plexpy:/config
+      - ${BASE_PATH}/media/TV Shows:/tv
       - /etc/localtime:/etc/localtime:ro
     # restart: unless-stopped
     networks:
