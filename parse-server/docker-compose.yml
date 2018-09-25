@@ -12,6 +12,9 @@ services:
     restart: always
     networks:
       - default
+    volumes:
+      - mongo_db:/data/db
+      - mongo_config:/data/configdb
     environment:
       MONGO_INITDB_ROOT_USERNAME: parser_server
       MONGO_INITDB_ROOT_PASSWORD: parser_pwd
@@ -41,6 +44,10 @@ services:
       
 
 volumes:
+  mongo_db:
+    driver: local
+  mongo_config:
+    driver: local  
   cloud:
     driver: local
   config:
