@@ -3,9 +3,8 @@ version: '2'
 services:
   dashboard:
     image: parseplatform/parse-dashboard
-    command: parse-dashboard --config ./config/dashboard.json
-    # volumes:
-    # - ./dashboard.json:/src/Parse-Dashboard/parse-dashboard-config.json
+    volumes:
+    - /opt/dashboard.json:/src/Parse-Dashboard/parse-dashboard-config.json
     expose:
       - 4040
     volumes:
@@ -20,13 +19,7 @@ services:
       - LETSENCRYPT_HOST=${DOMAIN}
       - LETSENCRYPT_EMAIL=namlehong@gmail.com
 
-
 networks:
   nginx-proxy:
     external:
       name: web
-
-
-volumes:
-  config:
-    driver: local
