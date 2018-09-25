@@ -1,0 +1,11 @@
+version: '2'
+
+services:
+  whoami:
+    image: jwilder/whoami
+    volumes:
+      - wdata:/opt/wdata
+
+volumes:
+  wdata:
+    driver: local
