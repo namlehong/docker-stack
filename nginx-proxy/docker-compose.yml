@@ -42,14 +42,14 @@ services:
 
 volumes:
   log:
-    driver: overlay2
+    driver: local
   html:
-    driver: overlay2
+    driver: local
   vhost:
-    driver: overlay2
+    driver: local
   certs:
-    driver: overlay2
+    driver: local
   nginx_config:
-    driver: overlay2
+    driver: local
   dhparam:
-    driver: overlay2
+    driver: local
