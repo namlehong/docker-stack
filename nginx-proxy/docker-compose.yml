@@ -22,6 +22,8 @@ services:
       - dhparam:/etc/nginx/dhparam
       - log:/var/log/nginx/
       - /var/run/docker.sock:/tmp/docker.sock:ro  
+    labels:
+      - "com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy=true"
 
   let:
     image: jrcs/letsencrypt-nginx-proxy-companion
@@ -33,8 +35,6 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     networks:
       - nginx-proxy
-    environment:
-      - NGINX_PROXY_CONTAINER=nginx-proxy
 
 volumes:
   log:
