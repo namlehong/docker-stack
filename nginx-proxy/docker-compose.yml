@@ -24,7 +24,7 @@ services:
       - /var/run/docker.sock:/tmp/docker.sock:ro  
       - /etc/localtime:/etc/localtime:ro
     labels:
-      - "com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy"
+      com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy: ""
 
   let:
     image: jrcs/letsencrypt-nginx-proxy-companion
@@ -37,17 +37,19 @@ services:
       - /etc/localtime:/etc/localtime:ro
     networks:
       - nginx-proxy
+    environment:
+      - NGINX_PROXY_CONTAINER=nginx-proxy
 
 volumes:
   log:
-    driver: local
+    # driver: local
   html:
-    driver: local
+    # driver: local
   vhost:
-    driver: local
+    # driver: local
   certs:
-    driver: local
+    # driver: local
   nginx_config:
-    driver: local
+    # driver: local
   dhparam:
-    driver: local
+    # driver: local
