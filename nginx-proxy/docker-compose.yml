@@ -20,6 +20,7 @@ services:
       - vhost:/etc/nginx/vhost.d
       - html:/usr/share/nginx/html
       - dhparam:/etc/nginx/dhparam
+      - log:/var/log/nginx/
       - /var/run/docker.sock:/tmp/docker.sock:ro  
 
   let:
@@ -36,6 +37,8 @@ services:
       - NGINX_PROXY_CONTAINER=nginx-proxy
 
 volumes:
+  log:
+    driver: local
   html:
     driver: local
   vhost:
